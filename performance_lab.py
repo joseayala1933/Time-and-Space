@@ -7,19 +7,23 @@
 # Output: 3
 
 def most_frequent(numbers):
-    # Your code here
-    pass
+    from collections import Counter
+    freq = Counter(numbers) 
+    return max(freq, key=freq.get) if numbers else None
 
+print('Problem 1')
+print(most_frequent([1, 2, 2, 5, 7, 2, 3])) 
+print(most_frequent([5, 5, 6, 6, 6]))        
+print(most_frequent([]))    
 """
 Time and Space Analysis for problem 1:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case: O(n) (must scan entire list at least once)
+- Worst-case: O(n) (still one scan + dictionary ops)
+- Average-case: O(n)
+- Space complexity: O(k), k = number of unique elements
+- Why this approach? Counter is efficient and optimized for frequency analysis
+- Could it be optimized If only one pass is allowed, the prgram allows to use manual dictionary count
 """
-
 
 # 🔍 Problem 2: Remove Duplicates While Preserving Order
 # Write a function that returns a list with duplicates removed but preserves order.
@@ -29,17 +33,27 @@ Time and Space Analysis for problem 1:
 # Output: [4, 5, 6, 7]
 
 def remove_duplicates(nums):
-    # Your code here
-    pass
+    seen = set()
+    result = []
+    for num in nums:
+        if num not in seen:
+            seen.add(num)
+            result.append(num)
+    return result
+
+print('Problem 2')
+print(remove_duplicates([2, 3, 3, 7, 10, 7])) 
+print(remove_duplicates([3, 3, 1, 1]))     
+print(remove_duplicates([]))                  
 
 """
 Time and Space Analysis for problem 2:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case: O(n)
+- Worst-case: O(n)
+- Average-case: O(n)
+- Space complexity: O(n) (set and result list)
+- Why this approach? Set provides O(1) membership check, preserving order with list
+- Could it be optimized? Not really, no major improvement for Python.
 """
 
 
@@ -52,17 +66,26 @@ Time and Space Analysis for problem 2:
 # Output: [(1, 4), (2, 3)]
 
 def find_pairs(nums, target):
-    # Your code here
-    pass
-
+    seen = set()
+    pairs = set()
+    for num in nums:
+        comp = target - num
+        if comp in seen:
+            pairs.add(tuple(sorted((num, comp))))
+        seen.add(num)
+    return list(pairs)
+print('Problem 3')
+print(find_pairs([1, 10, -3, 6], 7)) 
+print(find_pairs([0, 9, 4, 5], 9))  
+print(find_pairs([], 5)) 
 """
 Time and Space Analysis for problem 3:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case: O(n) 
+- Worst-case: O(n)
+- Average-case: O(n)
+- Space complexity: O(n) for seen + O(p) for pairs
+- Why this approach? Hash lookup makes complement check efficient
+- Could it be optimized?  O(n log n) also works, but hash-based is faster for unsorted input
 """
 
 
@@ -75,16 +98,30 @@ Time and Space Analysis for problem 3:
 # add_n_items(6) → should print when resizing happens.
 
 def add_n_items(n):
-    # Your code here
-    pass
+    capacity = 1
+    arr = [None] * capacity
+    size = 0
+    for i in range(n):
+        if size == capacity:  
+            print(f"Resizing from {capacity} to {capacity*2}")
+            capacity *= 2
+            new_arr = [None] * capacity
+            for j in range(size):
+                new_arr[j] = arr[j]
+            arr = new_arr
+        arr[size] = i
+        size += 1
+    return arr[:size]
 
+print('Problem 4')
+print(add_n_items(8))
 """
 Time and Space Analysis for problem 4:
-- When do resizes happen?
-- What is the worst-case for a single append?
-- What is the amortized time per append overall?
-- Space complexity:
-- Why does doubling reduce the cost overall?
+- When do resizes happen? Resizes happen when size == capacity
+- What is the worst-case for a single append? O(n) (copy all items during resize)
+- What is the amortized time per append overall? O(1), because doubling spreads cost
+- Space complexity: O(n) for the array
+- Why does doubling reduce the cost overall? number of copies per element is logarithmic in n, so cost spreads evenly
 """
 
 
@@ -98,8 +135,17 @@ Time and Space Analysis for problem 4:
 # Because: [1, 1+2, 1+2+3, 1+2+3+4]
 
 def running_total(nums):
-    # Your code here
-    pass
+    result = []
+    running_sum = 0
+    for num in nums:
+        running_sum += num
+        result.append(running_sum)
+    return result
+
+print('Problem 5')
+print(running_total([1, 2, 3, 4]))  # [1, 3, 6, 10]
+print(running_total([5, -2, 7]))    # [5, 3, 10]
+print(running_total([]))    
 
 """
 Time and Space Analysis for problem 5:
