@@ -143,16 +143,15 @@ def running_total(nums):
     return result
 
 print('Problem 5')
-print(running_total([1, 2, 3, 4]))  # [1, 3, 6, 10]
-print(running_total([5, -2, 7]))    # [5, 3, 10]
+print(running_total([1, 2, 3, 4, 5, 6])) 
+print(running_total([5, -4, 6, -2]))    
 print(running_total([]))    
-
 """
 Time and Space Analysis for problem 5:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case: O(n) 
+- Worst-case: O(n)
+- Average-case: O(n)
+- Space complexity: O(n) 
+- Why this approach? Efficient single-pass accumulation
+- Could it be optimized? In-place update is possible if overwriting input is acceptable
 """
